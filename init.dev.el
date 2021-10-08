@@ -31,7 +31,7 @@
 (defun jobsimi::install-counsel()
   (jobsimi::unless-package-install (function counsel-M-x) (quote counsel))
   (jobsimi::unless-package-install (function ivy-mode) (quote ivy))
-  (jobsimi::unless-package-install (function smex-mode) (quote smex)))
+  (jobsimi::unless-package-install (function smex) (quote smex)))
 (defun jobsimi:execute-extended-command()
   (interactive)
   (jobsimi::install-counsel)
@@ -52,3 +52,10 @@
   (jobsimi::install-counsel)
   (call-interactively (function counsel-dired)))
 (global-set-key (kbd "C-x d") (function jobsimi:dired))
+(with-eval-after-load (quote ivy)
+  (unless ivy-use-virtual-buffers
+    (ivy-mode)
+    (setq-default ivy-use-virtual-buffers t
+                  ivy-count-format ""
+                  projectile-completion-system 'ivy)
+    (define-key ivy-minibuffer-map (kbd "RET") (function ivy-alt-done))))

@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
- emacs-uptime
+ earned:try-user-init-file
+ eval-buffer
  browse-url
+ emacs-uptime
  counsel-dired
  counsel-find-file
  counsel-switch-buffer
- shell
- cd
 )
 
 ;; ----- smex-data -----
@@ -16,6 +16,8 @@
  (counsel-switch-buffer . 1)
  (counsel-find-file . 1)
  (counsel-dired . 2)
- (browse-url . 1)
+ (browse-url . 2)
  (emacs-uptime . 1)
+ (eval-buffer . 1)
+ (earned:try-user-init-file . 1)
 )
