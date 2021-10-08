@@ -124,3 +124,18 @@
                  (= (frame-parameter frame parameter)
                     value))
       (set-frame-parameter nil parameter value))))
+(defun jobsimi::coding-system ()
+  "设置统一的编码系统"
+  (let ((coding-system (quote utf-8)))
+    (setf default-buffer-file-coding-system coding-system
+          selection-coding-system coding-system)
+    (prefer-coding-system coding-system)
+    (when (eq system-type (quote windows-nt))
+      (let ((coding-system (quote utf-16-le)))
+        (set-next-selection-coding-system coding-system)
+        (set-selection-coding-system coding-system))
+      (unless (cl-member 'cp65001 coding-system-list)
+        (define-coding-system-alias 'cp65001 coding-system))))
+  (when (functionp (function w32-list-locales))
+    (setf system-time-locale "ENU")))
+(jobsimi::coding-system)
