@@ -47,3 +47,8 @@
   (jobsimi::install-counsel)
   (call-interactively (function counsel-find-file)))
 (global-set-key (kbd "C-x C-f") (function jobsimi:find-file))
+(defun jobsimi:dired()
+  (interactive)
+  (jobsimi::install-counsel)
+  (call-interactively (function counsel-dired)))
+(global-set-key (kbd "C-x d") (function jobsimi:dired))
