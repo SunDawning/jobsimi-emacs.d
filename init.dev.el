@@ -280,3 +280,5 @@ _人　　　ο　　● 　 ナ
     (erase-buffer)
     (insert (nth (random (length message)) message))
     (kill-emacs)))
+(with-eval-after-load (quote org)
+  (add-to-list (quote org-agenda-files) (quote "d:/sxtcProjects/工作任务.org")))
