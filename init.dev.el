@@ -172,3 +172,111 @@
   (interactive)
   (jobsimi::unless-package-install (function symbol-overlay-put) (quote symbol-overlay))
   (call-interactively (function symbol-overlay-put)))
+(defun jobsimi::mhtml-mode-hook ()
+  (electric-pair-mode)
+  (setf indent-tabs-mode nil)
+  )
+(with-eval-after-load (quote mhtml)
+  (add-hook (quote mhtml-mode-hook) (function jobsimi::mhtml-mode-hook)))
+(defun jobsimi:close-emacs-and-logoff-logout-the-computer (&optional arg)
+  (interactive "P")
+  (unless (and (called-interactively-p)
+               (not (y-or-n-p "是否登出当前计算机？")))
+    (if arg
+        (run-with-timer
+         (string-to-number
+          (read-string "Close Emacs After Seconds: "))
+         nil
+         (lambda ()
+           (when (functionp (function jobsimi:close-emacs-and-logoff-logout-the-computer))
+             (jobsimi:close-emacs-and-logoff-logout-the-computer))))
+      (when (functionp (function jobsimi::close-emacs))
+        (jobsimi::close-emacs
+         (lambda ()
+           (when (functionp (function jobsimi::shutdown))
+             (jobsimi::shutdown (quote logoff)))))))))
+(defun jobsimi:close-emacs-and-shut-down-poweroff-the-computer (&optional arg)
+  "Restart emacs from within emacs - Emacs Stack Exchange: https://emacs.stackexchange.com/questions/5428/restart-emacs-from-within-emacs"
+  (interactive "P")
+  (unless (and (called-interactively-p)
+               (not (y-or-n-p "是否关闭当前计算机？")))
+    (if arg
+        (run-with-timer
+         (string-to-number
+          (read-string "Close Emacs After Seconds: "))
+         nil
+         (lambda ()
+           (when (functionp (function jobsimi:close-emacs-and-shut-down-poweroff-the-computer))
+             (jobsimi:close-emacs-and-shut-down-poweroff-the-computer))))
+      (when (functionp (function jobsimi::close-emacs))
+        (jobsimi::close-emacs
+         (lambda ()
+           (when (functionp (function jobsimi::shutdown))
+             (jobsimi::shutdown 'poweroff))))))))
+(defun jobsimi:close-emacs-and-restart-reboot-computer (&optional arg)
+  (interactive "P")
+  (unless (and (called-interactively-p)
+               (not (y-or-n-p "是否重启当前计算机？")))
+    (if arg
+        (run-with-timer
+         (string-to-number
+          (read-string "Close Emacs After Seconds: "))
+         nil
+         (lambda ()
+           (when (functionp (function jobsimi:close-emacs-and-restart-reboot-computer))
+             (jobsimi:close-emacs-and-restart-reboot-computer))))
+      (when (functionp (function jobsimi::close-emacs))
+        (jobsimi::close-emacs
+         (lambda ()
+           (when (functionp (function jobsimi::shutdown))
+             (jobsimi::shutdown 'reboot))))))))
+(defun jobsimi::close-emacs (function)
+  (let ((kill-emacs-hook
+         (append kill-emacs-hook
+                 (list function)))
+        (message '("
+         .----.
+      _.'__    `.
+  .--(#)(##)---/#\\
+.' @          /###\\
+:         ,   #####
+ `-..__.-' _.-\\###/
+       `;_:    `\"'
+     .'\"\"\"\"\"`.
+    /,  GOD  ,\\
+   // Bless U. \\\\
+   `-._______.-'
+   ___`. | .'___
+  (______|______)" "
+ 　 ﾍ^ヽ､　 /⌒､　_,_
+　 |  　 ￣7　 (⌒r⌒7/
+　 レ　　 　＼_/￣＼_｣
+＿/　　　　　　　　 {
+_ﾌ　●　　　　　　　ゝ
+_人　　　ο　　● 　 ナ
+　 `ト､＿　　　　　メ
+　　　 /　 ￣ ーィﾞ
+　　 〈ﾟ･｡｡｡･ﾟ 　丶}" "
+       ○ ＿＿＿＿
+       ‖  GOD  |
+       ‖ Bless |
+       ‖   U   |
+       ‖￣￣￣￣
+  ∧__∧ ‖
+ \(`･ω･ ‖
+ \ つ ０
+  し--Ｊ" "
+ 　 \\　  /
+┏━━━━\\ /━━━━┓
+┃┏━━━━━━━━━┓┃
+┃┃   GOD   ┃┃
+┃┃ Bless U ┃┃
+┃┗━━━━━━━━━┛┃
+┗━━━∪━━━∪━━━┛" "
+{\____/}
+\(✿◕‿◕)
+/つᴳᴼᴰBₗₑₛₛᵁ")))
+    (switch-to-buffer "*close-emacs*")
+    (erase-buffer)
+    (insert (nth (random (length message)) message))
+    (kill-emacs)))
