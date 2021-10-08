@@ -12,5 +12,6 @@
 (defun jobsimi:fullscreen()
   (interactive)
   (package-initialize)
-  (global-company-mode))
+  (global-company-mode)
+  (global-font-lock-mode))
 (global-set-key (kbd "<f11>")(function jobsimi:fullscreen))
