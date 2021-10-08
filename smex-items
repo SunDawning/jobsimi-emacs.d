@@ -1,0 +1,21 @@
+
+;; ----- smex-history -----
+(
+ emacs-uptime
+ browse-url
+ counsel-dired
+ counsel-find-file
+ counsel-switch-buffer
+ shell
+ cd
+)
+
+;; ----- smex-data -----
+(
+ (shell . 1)
+ (counsel-switch-buffer . 1)
+ (counsel-find-file . 1)
+ (counsel-dired . 2)
+ (browse-url . 1)
+ (emacs-uptime . 1)
+)
