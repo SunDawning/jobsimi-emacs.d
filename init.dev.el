@@ -15,3 +15,8 @@
   (global-company-mode)
   (global-font-lock-mode))
 (global-set-key (kbd "<f11>")(function jobsimi:fullscreen))
+(defun jobsimi::emacs-lisp-mode-hook()
+  (electric-pair-mode)
+  (setf indent-tabs-mode nil))
+(with-eval-after-load (quote elisp-mode)
+  (add-hook (quote emacs-lisp-mode-hook) (function jobsimi::emacs-lisp-mode-hook)))
