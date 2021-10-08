@@ -151,3 +151,4 @@
   (add-hook (quote magit-pre-refresh-hook) (quote diff-hl-magit-pre-refresh))
   (add-hook (quote magit-post-refresh-hook) (quote diff-hl-magit-post-refresh))
   )
+(setf (symbol-function (quote yes-or-no-p)) (symbol-function (quote y-or-n-p)))
