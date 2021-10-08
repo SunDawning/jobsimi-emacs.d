@@ -140,3 +140,8 @@
   (when (functionp (function w32-list-locales))
     (setf system-time-locale "ENU")))
 (jobsimi::coding-system)
+(defun jobsimi:avy-goto-char()
+  (interactive)
+  (jobsimi::unless-package-install (function avy-goto-char) (quote avy))
+  (call-interactively (function avy-goto-char)))
+(global-set-key (kbd "C-c ;") (function jobsimi:avy-goto-char))
