@@ -1,3 +1,4 @@
+(setf gc-cons-threshold (* 1024 1024 1024))
 (defun jobsimi::js-mode-hook ()
   (electric-pair-mode)
   (setf indent-tabs-mode nil)
