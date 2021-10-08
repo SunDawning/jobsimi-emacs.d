@@ -42,3 +42,8 @@
   (jobsimi::install-counsel)
   (call-interactively (function counsel-switch-buffer)))
 (global-set-key (kbd "C-x b") (function jobsimi:switch-to-buffer))
+(defun jobsimi:find-file()
+  (interactive)
+  (jobsimi::install-counsel)
+  (call-interactively (function counsel-find-file)))
+(global-set-key (kbd "C-x C-f") (function jobsimi:find-file))
