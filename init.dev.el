@@ -8,3 +8,4 @@
       (quote
        (("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
 	("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))))
+(setf user-emacs-directory "d:/sxtcProjects/.emacs.d/")
