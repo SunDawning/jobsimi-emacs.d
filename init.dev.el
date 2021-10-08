@@ -9,3 +9,8 @@
        (("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
 	("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))))
 (setf user-emacs-directory "d:/sxtcProjects/.emacs.d/")
+(defun jobsimi:fullscreen()
+  (interactive)
+  (package-initialize)
+  (global-company-mode))
+(global-set-key (kbd "<f11>")(function jobsimi:fullscreen))
