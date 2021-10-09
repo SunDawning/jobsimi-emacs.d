@@ -8,7 +8,7 @@
 (setf package-archives
       (quote
        (("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-	("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))))
+        ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))))
 (setf user-emacs-directory "d:/sxtcProjects/.emacs.d/")
 (defun jobsimi::package-initialize()
   (unless (and (boundp (quote package--initialized))
@@ -291,3 +291,13 @@ _人　　　ο　　● 　 ナ
             org-agenda-span (quote day))
       (add-to-list (quote org-agenda-files)
                    file))))
+(defun jobsimi:http-server-browse-url-of-file()
+  "已经启动node的http-server，在浏览器里打开当前文件。"
+  (interactive)
+  (let ((root "d:/")
+        ;; "d:/sxtcProjects/gis3d/source/Application/imitateThreejs/gis3d/examples/docs_THREECSS2DLabel.html"
+        (file (buffer-file-name))
+        (newtext "http://192.168.1.68:8090/"))
+    (when (string-match root file)
+      (browse-url
+       (replace-match newtext nil nil file)))))
