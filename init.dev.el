@@ -280,10 +280,14 @@ _人　　　ο　　● 　 ナ
     (erase-buffer)
     (insert (nth (random (length message)) message))
     (kill-emacs)))
-(setf org-capture-templates
-      `(("t" "todo" entry (file "")  ; "" => `org-default-notes-file'
-         "* TODO %?\nSCHEDULED: %T\n" :clock-resume t))
-      ;; M-x org-agenda-list
-      org-agenda-span (quote day))
-(add-to-list (quote org-agenda-files)
-             org-default-notes-file)
+(with-eval-after-load (quote org)
+  (let ((file (expand-file-name "d:/sxtcProjects/工作任务.org")))
+    (when (file-exists-p file)
+      (setf org-default-notes-file file
+            org-capture-templates
+            `(("t" "todo" entry (file "")  ; "" => `org-default-notes-file'
+               "* TODO %?\nSCHEDULED: %T\n" :clock-resume t))
+            ;; M-x org-agenda-list
+            org-agenda-span (quote day))
+      (add-to-list (quote org-agenda-files)
+                   file))))
