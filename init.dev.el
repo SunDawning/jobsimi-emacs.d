@@ -280,5 +280,10 @@ _人　　　ο　　● 　 ナ
     (erase-buffer)
     (insert (nth (random (length message)) message))
     (kill-emacs)))
-(with-eval-after-load (quote org)
-  (add-to-list (quote org-agenda-files) (quote "d:/sxtcProjects/工作任务.org")))
+(setf org-capture-templates
+      `(("t" "todo" entry (file "")  ; "" => `org-default-notes-file'
+         "* TODO %?\nSCHEDULED: %T\n" :clock-resume t))
+      ;; M-x org-agenda-list
+      org-agenda-span (quote day))
+(add-to-list (quote org-agenda-files)
+             org-default-notes-file)
