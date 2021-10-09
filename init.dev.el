@@ -280,6 +280,33 @@ _人　　　ο　　● 　 ナ
     (erase-buffer)
     (insert (nth (random (length message)) message))
     (kill-emacs)))
+(defun jobsimi::shutdown (type)
+  (unless (fboundp (quote cl-case))
+    (require (quote cl-macs)))
+  (when (fboundp (quote cl-case))
+    (cl-case type
+      (reboot
+       (cond ((executable-find "/sbin/shutdown")
+              (call-process "sh" nil nil nil "-c" "/sbin/shutdown --reboot 0"))
+             ((executable-find "shutdown.exe")
+              (shell-command
+               (format
+                "%s -r -f -t 0"
+                (executable-find "shutdown.exe"))))))
+      (logoff
+       (cond ((executable-find "shutdown.exe")
+              (shell-command
+               (format
+                "%s -l -f"
+                (executable-find "shutdown.exe"))))))
+      (poweroff
+       (cond ((executable-find "/sbin/shutdown")
+              (call-process "sh" nil nil nil "-c" "/sbin/shutdown --poweroff 0"))
+             ((executable-find "shutdown.exe")
+              (shell-command
+               (format
+                "%s -s -f -t 0"
+                (executable-find "shutdown.exe")))))))))
 (with-eval-after-load (quote org)
   (let ((file (expand-file-name "d:/sxtcProjects/工作任务.org")))
     (when (file-exists-p file)
