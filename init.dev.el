@@ -329,3 +329,18 @@ _人　　　ο　　● 　 ナ
     (when (string-match root file)
       (browse-url
        (replace-match newtext nil nil file)))))
+(defun jobsimi:yank ()
+  "粘贴"
+  (interactive)
+  (when (use-region-p)
+    (delete-region
+     (region-beginning)
+     (region-end)))
+  (if (eq major-mode (quote org-mode))
+      (org-yank)
+    (yank)))
+(defun jobsimi::global-set-key (keys function)
+  (when (commandp function)
+    (global-set-key (kbd keys) function)))
+(when (functionp (function jobsimi:yank))
+  (jobsimi::global-set-key "C-y" (function jobsimi:yank)))
