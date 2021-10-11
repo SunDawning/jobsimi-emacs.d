@@ -20,6 +20,7 @@
     (package-install package)))
 (defun jobsimi:fullscreen()
   (interactive)
+  (show-paren-mode)
   (jobsimi::unless-package-install (function global-company-mode) (quote company))
   (global-company-mode)
   (global-font-lock-mode)
