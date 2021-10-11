@@ -345,3 +345,8 @@ _人　　　ο　　● 　 ナ
     (global-set-key (kbd keys) function)))
 (when (functionp (function jobsimi:yank))
   (jobsimi::global-set-key "C-y" (function jobsimi:yank)))
+(defun jobsimi::js2-mode()
+  (jobsimi::unless-package-install (function js2-mode) (quote js2-mode))
+  (js2-mode))
+(add-to-list (quote auto-mode-alist)
+             (cons "\\.js$" (function jobsimi::js2-mode)))
