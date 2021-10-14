@@ -350,3 +350,5 @@ _人　　　ο　　● 　 ナ
   (js2-mode))
 (add-to-list (quote auto-mode-alist)
              (cons "\\.js$" (function jobsimi::js2-mode)))
+(setf auto-save-default nil)
+(setf make-backup-files nil)
