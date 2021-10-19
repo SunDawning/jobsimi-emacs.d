@@ -310,7 +310,7 @@ _人　　　ο　　● 　 ナ
                 "%s -s -f -t 0"
                 (executable-find "shutdown.exe")))))))))
 (with-eval-after-load (quote org)
-  (let ((file (expand-file-name "d:/sxtcProjects/工作任务.org")))
+  (let ((file (expand-file-name "d:/sxtcProjects/tasks/index.org")))
     (when (file-exists-p file)
       (setf org-default-notes-file file
             org-capture-templates
