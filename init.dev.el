@@ -1,3 +1,4 @@
+(load-file "./before-init.el")
 (setf gc-cons-threshold (* 1024 1024 1024))
 (defun jobsimi::js-mode-hook ()
   (electric-pair-mode)
@@ -8,7 +9,6 @@
       (quote
        (("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))))
-(setf user-emacs-directory "d:/sxtcProjects/.emacs.d/")
 (defun jobsimi::package-initialize()
   (unless (and (boundp (quote package--initialized))
                package--initialized)
@@ -306,27 +306,30 @@ _人　　　ο　　● 　 ナ
                (format
                 "%s -s -f -t 0"
                 (executable-find "shutdown.exe")))))))))
-(with-eval-after-load (quote org)
-  (let ((file (expand-file-name "d:/sxtcProjects/tasks/index.org")))
-    (when (file-exists-p file)
-      (setf org-default-notes-file file
-            org-capture-templates
-            `(("t" "todo" entry (file "")  ; "" => `org-default-notes-file'
-               "* TODO %?\nSCHEDULED: %T\n" :clock-resume t))
-            ;; M-x org-agenda-list
-            org-agenda-span (quote day))
-      (add-to-list (quote org-agenda-files)
-                   file))))
+(let ((symbol (quote jobsimi::*task-file*)))
+  (when (boundp symbol)
+    (with-eval-after-load (quote org)
+      (let ((file (expand-file-name (symbol-value symbol))))
+        (when (file-exists-p file)
+          (setf org-default-notes-file file
+                org-capture-templates
+                `(("t" "todo" entry (file "")  ; "" => `org-default-notes-file'
+                   "* TODO %?\nSCHEDULED: %T\n" :clock-resume t))
+                ;; M-x org-agenda-list
+                org-agenda-span (quote day))
+          (add-to-list (quote org-agenda-files)
+                       file))))))
 (defun jobsimi:http-server-browse-url-of-file()
   "已经启动node的http-server，在浏览器里打开当前文件。"
   (interactive)
-  (let ((root "d:/")
-        ;; "d:/sxtcProjects/gis3d/source/Application/imitateThreejs/gis3d/examples/docs_THREECSS2DLabel.html"
-        (file (buffer-file-name))
-        (newtext "http://192.168.1.68:8090/"))
-    (when (string-match root file)
-      (browse-url
-       (replace-match newtext nil nil file)))))
+  (let ((symbol (quote jobsimi::*http-server-root*)))
+    (when (boundp symbol)
+      (let ((root (symbol-value symbol))
+            (file (buffer-file-name))
+            (newtext jobsimi::*http-server-root-replace*))
+        (when (string-match root file)
+          (browse-url
+           (replace-match newtext nil nil file)))))))
 (defun jobsimi:yank ()
   "粘贴"
   (interactive)
